@@ -10,7 +10,6 @@ export interface ISalesChartProps {
   chartTitle: string;
   chartType: string;
   context: WebPartContext;
-  listFields: string;
   listName: string;
 }
 
@@ -47,11 +46,20 @@ const months = [
   'Dec',
 ];
 
+// Colors
+const colors = [
+  '93, 201, 136',
+  '234, 120, 89',
+  '123, 87, 186',
+  '209, 37, 71',
+];
+
 export default class SalesChart extends React.Component<ISalesChartProps, ISalesChartState> {
   constructor(props: ISalesChartProps) {
     super(props);
 
     // Bind methods
+    this.refresh = this.refresh.bind(this);
     this.getSalesData = this.getSalesData.bind(this);
     this.calculateTotals = this.calculateTotals.bind(this);
     this.data = this.data.bind(this);
@@ -73,6 +81,8 @@ export default class SalesChart extends React.Component<ISalesChartProps, ISales
         {this.props.chartType === 'barv' && <Bar data={this.state.data} />}
         {this.props.chartType === 'barh' && <HorizontalBar data={this.state.data} />}
         {this.props.chartType === 'line' && <Line data={this.state.data} />}
+
+        <button className={styles.refresh} onClick={this.refresh}>Refresh</button>
       </div>
     );
   }
@@ -125,16 +135,16 @@ export default class SalesChart extends React.Component<ISalesChartProps, ISales
   private data(): void {
     // Add datasets
     const datasets: Chart.ChartDataSets[] = [];
-    Object.keys(this.state.totals).forEach(year => {
-      // Random color
-      const color = this.color();
+    Object.keys(this.state.totals).forEach((year, i) => {
+      // Next color
+      const color = colors[i % colors.length];
 
       // Add dataset
       datasets.push({
         label: year,
         data: this.state.totals[year],
-        backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, 0.5)`,
-        borderColor: `rgba(${color.r}, ${color.g}, ${color.b}, 1)`,
+        backgroundColor: `rgba(${color}, ${this.props.chartType === 'line' ? '0.25' : '1'})`,
+        borderColor: `rgba(${color}, 1)`,
       });
     });
 
@@ -145,14 +155,5 @@ export default class SalesChart extends React.Component<ISalesChartProps, ISales
         datasets,
       },
     });
-  }
-
-  // Random color
-  private color(): Color {
-    return {
-      r: Math.random() * 255,
-      g: Math.random() * 255,
-      b: Math.random() * 255,
-    };
   }
 }

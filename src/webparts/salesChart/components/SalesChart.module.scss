@@ -4,3 +4,15 @@
   margin: 0 0 20px;
   text-align: center;
 }
+
+// Refresh
+.refresh {
+  background: #fff;
+  border: 1px solid '[theme:themePrimary, default:#0078d4]';
+  color: '[theme:themePrimary, default:#0078d4]';
+  cursor: pointer;
+  display: block;
+  font-size: inherit;
+  margin: 20px auto;
+  padding: .75em 1.25em;
+}
