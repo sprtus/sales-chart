@@ -21,6 +21,7 @@ export default class SalesChartWebPart extends BaseClientSideWebPart<ISalesChart
       {
         chartTitle: this.properties.chartTitle,
         chartType: this.properties.chartType,
+        context: this.context,
         listFields: this.properties.listFields,
         listName: this.properties.listName,
       },
