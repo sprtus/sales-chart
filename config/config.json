@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "sales-chart-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/salesChart/SalesChartWebPart.js",
+          "manifest": "./src/webparts/salesChart/SalesChartWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "SalesChartWebPartStrings": "lib/webparts/salesChart/loc/{locale}.js"
+  }
+}
