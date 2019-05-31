@@ -124,7 +124,7 @@ export default class SalesChart extends React.Component<ISalesChartProps, ISales
       if (!totals[sale.YEAR_ID]) totals[sale.YEAR_ID] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
       // Increment total
-      totals[sale.YEAR_ID][sale.MONTH_ID - 1] += sale.SALES;
+      totals[sale.YEAR_ID][sale.MONTH_ID - 1] += Math.round(sale.SALES);
     });
 
     // Update state
