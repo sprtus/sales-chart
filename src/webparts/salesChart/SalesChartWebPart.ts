@@ -1,30 +1,30 @@
+import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
+import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneDropdown } from '@microsoft/sp-property-pane';
+import { Version } from '@microsoft/sp-core-library';
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { Version } from '@microsoft/sp-core-library';
-import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import {
-  IPropertyPaneConfiguration,
-  PropertyPaneTextField
-} from '@microsoft/sp-property-pane';
 
-import * as strings from 'SalesChartWebPartStrings';
+import { ISalesChartProps } from './components/SalesChart';
 import SalesChart from './components/SalesChart';
-import { ISalesChartProps } from './components/ISalesChartProps';
 
 export interface ISalesChartWebPartProps {
-  description: string;
+  chartTitle: string;
+  chartType: string;
+  listFields: string;
+  listName: string;
 }
 
 export default class SalesChartWebPart extends BaseClientSideWebPart<ISalesChartWebPartProps> {
-
   public render(): void {
     const element: React.ReactElement<ISalesChartProps > = React.createElement(
       SalesChart,
       {
-        description: this.properties.description
-      }
+        chartTitle: this.properties.chartTitle,
+        chartType: this.properties.chartType,
+        listFields: this.properties.listFields,
+        listName: this.properties.listName,
+      },
     );
-
     ReactDom.render(element, this.domElement);
   }
 
@@ -40,21 +40,39 @@ export default class SalesChartWebPart extends BaseClientSideWebPart<ISalesChart
     return {
       pages: [
         {
-          header: {
-            description: strings.PropertyPaneDescription
-          },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: 'Data',
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
-              ]
-            }
-          ]
-        }
-      ]
+                PropertyPaneTextField('listName', {
+                  label: 'List Name',
+                }),
+                PropertyPaneTextField('listFields', {
+                  label: 'List Fields',
+                  placeholder: 'Separate field names with a comma',
+                }),
+              ],
+            },
+            {
+              groupName: 'Chart',
+              groupFields: [
+                PropertyPaneTextField('chartTitle', {
+                  label: 'Chart Title',
+                }),
+                PropertyPaneDropdown('chartType', {
+                  selectedKey: this.properties.chartType,
+                  label: 'Chart Type',
+                  options: [
+                    { key: 'barv', text: 'Bar Chart (Vertical)' },
+                    { key: 'barh', text: 'Bar Chart (Horizontal)' },
+                    { key: 'line', text: 'Line Chart' },
+                  ],
+                }),
+              ],
+            },
+          ],
+        },
+      ],
     };
   }
 }

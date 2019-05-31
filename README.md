@@ -1,6 +1,6 @@
 ## sales-chart
 
-This is where you include your WebPart documentation.
+A SharePoint Framework web part to visualize sales data
 
 ### Building the code
 

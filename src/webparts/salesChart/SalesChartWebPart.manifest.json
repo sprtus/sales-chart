@@ -21,7 +21,10 @@
     "description": { "default": "Visualize sales data" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "SalesChart"
+      "chartTitle": "",
+      "chartType": "barv",
+      "listFields": "",
+      "listName": ""
     }
   }]
 }
