@@ -19,9 +19,9 @@
     "group": { "default": "Other" },
     "title": { "default": "SalesChart" },
     "description": { "default": "Visualize sales data" },
-    "officeFabricIconFontName": "Page",
+    "officeFabricIconFontName": "Chart",
     "properties": {
-      "chartTitle": "",
+      "chartTitle": "Sales",
       "chartType": "barv",
       "listFields": "",
       "listName": ""
